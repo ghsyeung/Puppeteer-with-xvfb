@@ -9,38 +9,34 @@ const runner = async search => {
     args: ["--no-sandbox", "--disable-setuid-sandbox"]
   });
   const page = await browser.newPage();
+
+  async function cleanup() {
+    try {
+      console.log("Cleaning up instances");
+      await page.close();
+      await browser.close();
+    } catch (e) {
+      console.log("Cannot cleanup istances");
+    }
+  }
+
   try {
-    console.log("Navigatig url");
-    await page.goto("https://developers.google.com/web/");
-
-    // Type into search box.
+    console.log("Navigating url");
+    await page.goto("https://duckduckgo.com/", { waitUntil: "networkidle2" });
     console.log("Typing text");
-    await page.type("#searchbox input", search);
-
-    // Wait for suggest overlay to appear and click "show all results".
-    const allResultsSelector = ".devsite-suggest-all-results";
-    await page.waitForSelector(allResultsSelector);
-    await page.click(allResultsSelector);
-
-    // Wait for the results page to load and display the results.
-    const resultsSelector = ".gsc-results .gsc-thumbnail-inside a.gs-title";
-    await page.waitForSelector(resultsSelector);
-    console.log("Getting data");
-    // Extract the results from the page.
-    data = await page.evaluate(resultsSelector => {
-      const anchors = Array.from(document.querySelectorAll(resultsSelector));
-      return anchors.map(anchor => {
-        const title = anchor.textContent.split("|")[0].trim();
-        return title;
-      });
-    }, resultsSelector);
-    console.log("DOne, browser closing");
-    await browser.close();
+    await page.type("input#search_form_input_homepage", search, { delay: 50 });
+    await page.click("input#search_button_homepage");
+    console.log("Wait for results");
+    await page.waitForSelector(".results--main #r1-0");
+    data = await page.evaluate(() =>
+      [...document.querySelectorAll("a.result__a")].map(e=>e.textContent.trim())
+    );
+    console.log("Extracted data");
+    await cleanup();
   } catch (e) {
-    console.log('Error happened', e);
+    console.log("Error happened", e);
     await page.screenshot({ path: "error.png" });
-    await page.close();
-    await browser.close();
+    await cleanup();
   }
   return data;
 };
