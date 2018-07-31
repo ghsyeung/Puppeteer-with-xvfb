@@ -1,5 +1,8 @@
 FROM node:8
 
+# Install process manager
+RUN npm install -g pm2
+
 # Install dependencies
 RUN apt-get update &&\
 apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
@@ -16,12 +19,12 @@ WORKDIR /app
 COPY package.json /app
 
 # Install dependencies
-RUN npm install
-RUN npm install -g pm2
+RUN npm install 
+
 COPY . /app
 
 # Start server on port 3000∂
 EXPOSE 3000
 
 # Start script on Xvfb
-CMD pm2 start process.json
+CMD pm2 start process.json && pm2 logs
