@@ -8,4 +8,4 @@ sudo docker build -t scraper .
 # sudo docker run --network=host --restart always -it scraper
 
 # comment if you don't want to run and remove on exit
-sudo docker run --network=host --rm -it scraper
+sudo docker run --network=host -it scraper
