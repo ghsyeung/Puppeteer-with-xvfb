@@ -17,14 +17,11 @@ COPY package.json /app
 
 # Install dependencies
 RUN npm install
+RUN npm install -g pm2
 COPY . /app
 
 # Start server on port 3000∂
-EXPOSE 3000:3001
-ENV PORT=3001
-
-# Creating Display
-ENV DISPLAY :99
+EXPOSE 3000
 
 # Start script on Xvfb
-CMD Xvfb :99 -screen 0 1024x768x16 & npm start
+CMD pm2 start process.json
