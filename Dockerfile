@@ -20,9 +20,11 @@ RUN npm install
 COPY . /app
 
 # Start server on port 3000∂
-EXPOSE 3000
+EXPOSE 3000:3001
+ENV PORT=3001
 
 # Creating Display
 ENV DISPLAY :99
+
 # Start script on Xvfb
-CMD Xvfb :99 -screen 0 1024x768x16 -nolisten tcp & npm start
+CMD Xvfb :99 -screen 0 1024x768x16 & npm start
