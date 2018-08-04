@@ -24,7 +24,7 @@ RUN npm install
 COPY . /app
 
 # Start server on port 3000∂
-EXPOSE 3000
+EXPOSE 80:3000
 
 # Start script on Xvfb
 CMD pm2 start process.json && pm2 logs
