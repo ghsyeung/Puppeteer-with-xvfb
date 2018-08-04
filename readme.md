@@ -1,5 +1,16 @@
 # Overview
-Assuming we are going to use digitalocean for hosting, we will install a one click app, it should be either Docker or NodeJS. That way we don't have to worry about installing them manually. Make sure you have docker installed and running, after that, we have a docker file `Dockerfile` which we can use to deploy our app anywhere. The docker file is commented out with proper code, you can read it to know what is happenening behind the scene. 
+Assuming we are going to use digitalocean for hosting, we will install a one click app, it should be either Docker or NodeJS. That way we don't have to worry about installing them manually. 
+
+Make sure you have docker installed and running, after that, we have a docker file `Dockerfile` which we can use to deploy our app anywhere. The docker file is commented out with proper code, you can read it to know what is happenening behind the scene. 
+
+This is a very big topic to cover, so I'll link to related resources instead to discuss everything here, If you don't know what is docker or nodejs, 
+
+Here are some crash courses that will make you up and running,
+- https://www.youtube.com/watch?v=YFl2mCHdv24
+
+Here are some videos about deploying an app on digitalocean,
+- https://www.youtube.com/watch?v=BUasdmczmMw
+- https://www.youtube.com/watch?v=RE2PLyFqCzE
 
 If you want to know how to install docker or nodejs manually, here are some guides for that,
 - Install Docker manually, https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
@@ -23,8 +34,7 @@ So the instructions right now are pretty straightforward,
 
 ## Running the docker
 
-You need to build the docker image/container every time you want to run the script, 
-Make sure to remove the container before building another one.
+You need to build the docker image/container every time you want to run the script, Make sure to remove the container before building another one. I cannot go over all commands, but here are some basic commands to get you going.
 
 ```sh
 # Stop all running containers
